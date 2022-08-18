@@ -5,6 +5,7 @@ body {
     box-sizing: border-box;
     background-color: #202020;
     color: #fefefe;
+    overflow: hidden;
 }
 
 *,
@@ -18,6 +19,6 @@ body {
     position: absolute;
     left: 50%;
     bottom: 10%;
-    transform: translateX(-50%);
+    transform: translateX(-25%);
     outline: #fefefe solid 1px;
 }
