@@ -47,25 +47,25 @@ window.onkeyup = (e) => {
     switch (e.key) {
         case 'ArrowRight':
             if (player.movement.x < 1) {
-                player.movement.y *= Math.SQRT2
+                player.movement.y = Math.round(player.movement.y * Math.SQRT2)
             }
             player.movement.x = (pressed_keys['ArrowLeft'] ? -1 : 0)
             break;
         case 'ArrowLeft':
             if (player.movement.x > -1) {
-                player.movement.y *= Math.SQRT2
+                player.movement.y = Math.round(player.movement.y * Math.SQRT2)
             }
             player.movement.x = (pressed_keys['ArrowRight'] ? 1 : 0)
             break;
         case 'ArrowDown':
             if (player.movement.y < 1) {
-                player.movement.x *= Math.SQRT2
+                player.movement.x = Math.round(player.movement.x * Math.SQRT2)
             }
             player.movement.y = (pressed_keys['ArrowUp'] ? -1 : 0)
             break;
         case 'ArrowUp':
             if (player.movement.y > -1) {
-                player.movement.x *= Math.SQRT2
+                player.movement.x = Math.round(player.movement.x * Math.SQRT2)
             }
             player.movement.y = (pressed_keys['ArrowDown'] ? 1 : 0)
             break;
