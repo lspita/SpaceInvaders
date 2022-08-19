@@ -19,6 +19,5 @@ body {
     position: absolute;
     left: 50%;
     bottom: 10%;
-    transform: translateX(-25%);
     outline: #fefefe solid 1px;
 }

@@ -11,6 +11,9 @@ const player = {
         y: 0
     }
 }
+
+player.rect.x = (window.innerWidth - player.rect.width) / 2
+
 window.onkeydown = (e) => {
     if (e.repeat) return
     pressed_keys[e.key] = true
@@ -64,8 +67,6 @@ window.onkeyup = (e) => {
  * @param {number} deltaTime 
  */
 function update(deltaTime) {
-    console.log(player.rect.top, player.rect.bottom, player.rect.left, player.rect.right, window.innerHeight, window.innerWidth);
-
     let resetx = player.rect.x,
         resety = player.rect.y
     player.rect.x += player.movement.x * player.speed * deltaTime
