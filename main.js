@@ -1,5 +1,6 @@
 let _playerelement = document.getElementById('player')
 const pressed_keys = {}
+const logger = document.getElementById('logger')
 
 const player = {
     element: _playerelement,
@@ -45,16 +46,28 @@ window.onkeyup = (e) => {
     pressed_keys[e.key] = false
     switch (e.key) {
         case 'ArrowRight':
+            if (player.movement.x < 1) {
+                player.movement.y *= Math.SQRT2
+            }
             player.movement.x = (pressed_keys['ArrowLeft'] ? -1 : 0)
             break;
         case 'ArrowLeft':
+            if (player.movement.x > -1) {
+                player.movement.y *= Math.SQRT2
+            }
             player.movement.x = (pressed_keys['ArrowRight'] ? 1 : 0)
             break;
-        case 'ArrowUp':
-            player.movement.y = (pressed_keys['ArrowDown'] ? 1 : 0)
-            break;
         case 'ArrowDown':
+            if (player.movement.y < 1) {
+                player.movement.x *= Math.SQRT2
+            }
             player.movement.y = (pressed_keys['ArrowUp'] ? -1 : 0)
+            break;
+        case 'ArrowUp':
+            if (player.movement.y > -1) {
+                player.movement.x *= Math.SQRT2
+            }
+            player.movement.y = (pressed_keys['ArrowDown'] ? 1 : 0)
             break;
         case ' ':
             //TODO player.stopShooting()
@@ -79,6 +92,7 @@ function update(deltaTime) {
     if (player.rect.top <= 0 || player.rect.bottom >= window.innerHeight) {
         player.rect.y = resety
     }
+    logger.innerText = JSON.stringify(player.movement)
 }
 
 
