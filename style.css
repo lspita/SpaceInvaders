@@ -14,10 +14,19 @@ body {
     box-sizing: inherit;
 }
 
-#player {
-    width: 120px;
+.game-object {
     position: absolute;
+}
+
+.player {
+    width: 120px;
+    height: auto;
     left: 50%;
     bottom: 10%;
     outline: #fefefe solid 1px;
+}
+
+.bullet {
+    width: 20px;
+    outline: greenyellow solid 1px;
 }
