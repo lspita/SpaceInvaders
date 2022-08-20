@@ -3,6 +3,7 @@ export default class GameObject {
     static currentObjects = []
 
     constructor(customClass) {
+
         this.element = document.createElement('img')
         this.element.classList.add('game-object')
         if (customClass) {
@@ -10,12 +11,13 @@ export default class GameObject {
         }
         document.body.appendChild(this.element)
         this.rect = this.element.getBoundingClientRect()
-        console.log(JSON.stringify(this.rect));
-        //FIXME spawn and movement (height 0 at start)
+        console.log("file: engine.js ~ line 14 ~ GameObject ~ constructor ~ this.rect", this.rect)
         this.movement = {
             x: 0,
             y: 0
         }
+
+        GameObject.currentObjects.push(this)
     }
 
     /**

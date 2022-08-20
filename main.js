@@ -6,6 +6,7 @@ const logger = document.getElementById('logger')
 
 const player = new Player()
 
+console.log("file: main.js ~ line 10 ~ player.rect", player.rect)
 player.rect.x = (window.innerWidth - player.rect.width) / 2
 
 window.onkeydown = (e) => {

@@ -24,7 +24,6 @@ export class Player extends GameObject {
      * @param {Object<string, boolean>} pressed_keys 
      */
     onkeydown(e, pressed_keys) {
-        console.log(e.key);
         switch (e.key) {
             case 'ArrowRight':
                 this.movement.x = 1
