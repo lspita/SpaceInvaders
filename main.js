@@ -6,8 +6,6 @@ const logger = document.getElementById('logger')
 
 const player = new Player()
 
-console.log("file: main.js ~ line 10 ~ player.rect", player.rect)
-player.rect.x = (window.innerWidth - player.rect.width) / 2
 
 window.onkeydown = (e) => {
     if (e.repeat) return
@@ -51,4 +49,16 @@ function loop(timestamp) {
     window.requestAnimationFrame(loop)
 }
 var lastRender = 0
-window.requestAnimationFrame(loop)
+
+function setup() {
+    if (player.element.height <= 0) {
+        window.requestAnimationFrame(setup)
+    }
+    player.rect = player.element.getBoundingClientRect()
+    player.rect.x = (window.innerWidth - player.rect.width) / 2
+    player.rect.y = window.innerHeight - player.rect.height - (window.innerHeight / 10)
+    console.log(player.rect);
+    window.requestAnimationFrame(loop)
+}
+
+window.requestAnimationFrame(setup)

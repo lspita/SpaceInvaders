@@ -11,7 +11,6 @@ export default class GameObject {
         }
         document.body.appendChild(this.element)
         this.rect = this.element.getBoundingClientRect()
-        console.log("file: engine.js ~ line 14 ~ GameObject ~ constructor ~ this.rect", this.rect)
         this.movement = {
             x: 0,
             y: 0
@@ -23,9 +22,7 @@ export default class GameObject {
     /**
      * @param {number} deltaTime 
      */
-    update(deltaTime) {
-
-    }
+    update(deltaTime) { }
 
     draw() {
         this.element.style.left = `${this.rect.x}px`
