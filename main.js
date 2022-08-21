@@ -50,6 +50,7 @@ function loop(timestamp) {
 }
 var lastRender = 0
 
+//TODO Check in loop if objs incremented and call setup for new ones (if it works in contructor it's better)
 function setup() {
     if (player.element.height <= 0) {
         window.requestAnimationFrame(setup)
