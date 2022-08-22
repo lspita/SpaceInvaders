@@ -37,10 +37,9 @@ export class Player extends GameObject {
                 break;
         }
 
-        if (this.movement.x != 0 && this.movement.y != 0) {
-            this.movement.x *= Math.SQRT1_2
-            this.movement.y *= Math.SQRT1_2
-        }
+        let magnitude = Math.sqrt(this.movement.x ** 2 + this.movement.y ** 2)
+        this.movement.x /= magnitude
+        this.movement.y /= magnitude
     }
 
     /**
@@ -50,25 +49,25 @@ export class Player extends GameObject {
     onkeyup(e, pressed_keys) {
         switch (e.key) {
             case 'ArrowRight':
-                if (this.movement.x < 1) {
+                if (this.movement.x == Math.SQRT1_2) {
                     this.movement.y = Math.round(this.movement.y * Math.SQRT2)
                 }
                 this.movement.x = (pressed_keys['ArrowLeft'] ? -1 : 0)
                 break;
             case 'ArrowLeft':
-                if (this.movement.x > -1) {
+                if (this.movement.x == -Math.SQRT1_2) {
                     this.movement.y = Math.round(this.movement.y * Math.SQRT2)
                 }
                 this.movement.x = (pressed_keys['ArrowRight'] ? 1 : 0)
                 break;
             case 'ArrowDown':
-                if (this.movement.y < 1) {
+                if (this.movement.y == Math.SQRT1_2) {
                     this.movement.x = Math.round(this.movement.x * Math.SQRT2)
                 }
                 this.movement.y = (pressed_keys['ArrowUp'] ? -1 : 0)
                 break;
             case 'ArrowUp':
-                if (this.movement.y > -1) {
+                if (this.movement.y == -Math.SQRT1_2) {
                     this.movement.x = Math.round(this.movement.x * Math.SQRT2)
                 }
                 this.movement.y = (pressed_keys['ArrowDown'] ? 1 : 0)
