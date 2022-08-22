@@ -2,12 +2,12 @@ import GameObject from "./engine.js"
 import Bullet from "./bullet.js"
 
 export class Player extends GameObject {
-    static idle_image = 'assets/player/level1/idle.png'
-    static active_image = 'assets/player/level1/active.png'
 
     constructor() {
         super('player')
-        this.element.src = Player.idle_image
+        this.idle_image = 'assets/player/level1/idle.png'
+        this.active_image = 'assets/player/level1/active.png'
+        this.element.src = this.idle_image
         this.level = 1
         this.speed = 300
         this.firerate = 2
@@ -34,6 +34,9 @@ export class Player extends GameObject {
                 break;
             case ' ':
                 this.startShooting()
+                break;
+            case 'u':
+                this.upgrade()
                 break;
         }
 
@@ -103,7 +106,7 @@ export class Player extends GameObject {
             this.rect.y = resety
         }
 
-        this.element.src = (this.movement.x != 0 || this.movement.y != 0 ? Player.active_image : Player.idle_image)
+        this.element.src = (this.movement.x != 0 || this.movement.y != 0 ? this.active_image : this.idle_image)
     }
 
     startShooting() {
@@ -114,5 +117,13 @@ export class Player extends GameObject {
 
     stopShooting() {
         clearInterval(this._fire_interval)
+    }
+
+    upgrade() {
+        this.level++
+        this.idle_image = `assets/player/level${this.level}/idle.png`
+        this.active_image = `assets/player/level${this.level}/active.png`
+        this.speed *= 1.5
+        this.firerate *= 1.5
     }
 }
