@@ -6,6 +6,10 @@ body {
     background-color: #202020;
     color: #fefefe;
     overflow: hidden;
+    background-image: url('assets/background.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
 }
 
 *,
@@ -21,12 +25,11 @@ body {
 .player {
     width: 120px;
     height: auto;
-    left: 50%;
-    bottom: 10%;
-    outline: #fefefe solid 1px;
+    outline: white solid 1px;
 }
 
 .bullet {
     width: 20px;
+    height: auto;
     outline: greenyellow solid 1px;
 }

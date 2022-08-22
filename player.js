@@ -1,22 +1,17 @@
 import GameObject from "./engine.js"
+import Bullet from "./bullet.js"
 
 export class Player extends GameObject {
-    static imagesrc = 'assets/player/level1/idle.png'
-    static bullet_imagesrc = 'assets/player/level1/idle.png'
+    static idle_image = 'assets/player/level1/idle.png'
+    static active_image = 'assets/player/level1/active.png'
 
     constructor() {
         super('player')
-        this.element.src = Player.imagesrc
-
+        this.element.src = Player.idle_image
         this.level = 1
-        this.speed = 250
-
-    }
-
-    startShooting() {
-        let bullet = document.createElement('img')
-        bullet.src = bullet_imagesrc
-        bullet.classList.add('bullet')
+        this.speed = 300
+        this.firerate = 2
+        this._fire_interval = undefined
     }
 
     /**
@@ -38,7 +33,7 @@ export class Player extends GameObject {
                 this.movement.y = 1
                 break;
             case ' ':
-                //TODO this.startShooting()
+                this.startShooting()
                 break;
         }
 
@@ -79,9 +74,16 @@ export class Player extends GameObject {
                 this.movement.y = (pressed_keys['ArrowDown'] ? 1 : 0)
                 break;
             case ' ':
-                //TODO this.stopShooting()
+                this.stopShooting()
                 break;
         }
+    }
+
+    setup() {
+        super.setup(() => {
+            this.rect.x = (window.innerWidth - this.rect.width) / 2
+            this.rect.y = window.innerHeight - this.rect.height - (window.innerHeight / 10)
+        })
     }
 
     /**
@@ -90,8 +92,7 @@ export class Player extends GameObject {
     update(deltaTime) {
         let resetx = this.rect.x,
             resety = this.rect.y
-        this.rect.x += this.movement.x * this.speed * deltaTime
-        this.rect.y += this.movement.y * this.speed * deltaTime
+        super.update(deltaTime)
 
         if (this.rect.left <= 0 || this.rect.right >= window.innerWidth) {
             this.rect.x = resetx
@@ -100,5 +101,17 @@ export class Player extends GameObject {
         if (this.rect.top <= 0 || this.rect.bottom >= window.innerHeight) {
             this.rect.y = resety
         }
+
+        this.element.src = (this.movement.x != 0 || this.movement.y != 0 ? Player.active_image : Player.idle_image)
+    }
+
+    startShooting() {
+        this._fire_interval = setInterval(() => {
+            new Bullet(this, false)
+        }, 1000 / this.firerate)
+    }
+
+    stopShooting() {
+        clearInterval(this._fire_interval)
     }
 }

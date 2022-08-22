@@ -33,7 +33,11 @@ function update(deltaTime) {
 
 
 function draw() {
-    player.draw()
+    for (let i = 0; i < GameObject.currentObjects.length; i++) {
+        const gameobj = GameObject.currentObjects[i];
+        gameobj.draw()
+
+    }
 }
 
 /**
@@ -51,15 +55,5 @@ function loop(timestamp) {
 var lastRender = 0
 
 //TODO Check in loop if objs incremented and call setup for new ones (if it works in contructor it's better)
-function setup() {
-    if (player.element.height <= 0) {
-        window.requestAnimationFrame(setup)
-    }
-    player.rect = player.element.getBoundingClientRect()
-    player.rect.x = (window.innerWidth - player.rect.width) / 2
-    player.rect.y = window.innerHeight - player.rect.height - (window.innerHeight / 10)
-    console.log(player.rect);
-    window.requestAnimationFrame(loop)
-}
 
-window.requestAnimationFrame(setup)
+window.requestAnimationFrame(loop)
