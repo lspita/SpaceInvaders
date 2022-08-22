@@ -38,8 +38,10 @@ export class Player extends GameObject {
         }
 
         let magnitude = Math.sqrt(this.movement.x ** 2 + this.movement.y ** 2)
-        this.movement.x /= magnitude
-        this.movement.y /= magnitude
+        if (magnitude != 0) {
+            this.movement.x /= magnitude
+            this.movement.y /= magnitude
+        }
     }
 
     /**
