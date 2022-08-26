@@ -1,5 +1,5 @@
 import GameObject from './engine.js'
-import { Player } from './player.js'
+import Player from './player.js'
 
 const pressed_keys = {}
 const logger = document.getElementById('logger')
