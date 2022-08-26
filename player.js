@@ -1,7 +1,7 @@
 import GameObject from "./engine.js"
 import Bullet from "./bullet.js"
 
-export class Player extends GameObject {
+export default class Player extends GameObject {
 
     constructor() {
         super('player')
