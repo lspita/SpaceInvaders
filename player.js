@@ -11,7 +11,7 @@ export class Player extends GameObject {
         this.level = 1
         this.speed = 300
         this.firerate = 2
-        this._fire_interval = undefined
+        this._fire_interval = null
         this._prevent_spam = false
     }
 
@@ -111,7 +111,7 @@ export class Player extends GameObject {
     }
 
     startShooting() {
-        if (this._prevent_spam) {
+        if (this._prevent_spam || this._fire_interval) {
             return
         }
         new Bullet(this, false)
@@ -127,6 +127,7 @@ export class Player extends GameObject {
 
     stopShooting() {
         clearInterval(this._fire_interval)
+        this._fire_interval = null
     }
 
     upgrade() {
