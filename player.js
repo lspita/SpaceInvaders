@@ -5,10 +5,10 @@ export default class Player extends GameObject {
 
     constructor() {
         super('player')
-        this.idle_image = 'assets/player/level1/idle.png'
-        this.active_image = 'assets/player/level1/active.png'
-        this.element.src = this.idle_image
         this.level = 1
+        this.idle_image = `assets/player/level${this.level}/idle.png`
+        this.active_image = `assets/player/level${this.level}/active.png`
+        this.element.src = this.idle_image
         this.speed = 300
         this.firerate = 2
         this._fire_interval = null

@@ -28,7 +28,7 @@ function update(deltaTime) {
         gameobj.update(deltaTime)
 
     }
-    logger.innerText = JSON.stringify(player.movement)
+    logger.innerText = JSON.stringify(player, null, 2)
 }
 
 
