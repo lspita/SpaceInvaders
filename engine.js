@@ -3,7 +3,6 @@ export default class GameObject {
     static currentObjects = []
 
     constructor(customClass) {
-
         this.element = document.createElement('img')
         this.element.classList.add('game-object')
         if (customClass) {
@@ -29,6 +28,7 @@ export default class GameObject {
         }
         this.rect = this.element.getBoundingClientRect()
         this.element.height = this.rect.height
+        this.element.style.visibility = 'visible'
         GameObject.currentObjects.push(this)
         cb.bind(this)()
     }

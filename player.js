@@ -1,6 +1,8 @@
 import GameObject from "./engine.js"
 import Bullet from "./bullet.js"
 
+
+const MAX_LEVEL = 3
 export default class Player extends GameObject {
 
     constructor() {
@@ -131,10 +133,13 @@ export default class Player extends GameObject {
     }
 
     upgrade() {
+        if (this.level >= MAX_LEVEL) {
+            return
+        }
         this.level++
         this.idle_image = `assets/player/level${this.level}/idle.png`
         this.active_image = `assets/player/level${this.level}/active.png`
-        this.speed *= 1.5
-        this.firerate *= 1.5
+        this.speed += 80
+        this.firerate += 1
     }
 }

@@ -1,6 +1,7 @@
 import GameObject from "./engine.js"
 
 export default class Bullet extends GameObject {
+
     constructor(shooter, enemy_bullet = false) {
         super('bullet')
         this.shooter = shooter

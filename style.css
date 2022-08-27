@@ -22,6 +22,8 @@ body {
 
 .game-object {
     position: absolute;
+    top: 110vh;
+    visibility: hidden;
 }
 
 .player {

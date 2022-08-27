@@ -26,8 +26,8 @@ function update(deltaTime) {
     for (let i = 0; i < GameObject.currentObjects.length; i++) {
         const gameobj = GameObject.currentObjects[i];
         gameobj.update(deltaTime)
-
     }
+
     logger.innerText = JSON.stringify(player, null, 2)
 }
 
@@ -36,9 +36,10 @@ function draw() {
     for (let i = 0; i < GameObject.currentObjects.length; i++) {
         const gameobj = GameObject.currentObjects[i];
         gameobj.draw()
-
     }
 }
+
+var lastRender = 0
 
 /**
  * @param {number} timestamp 
@@ -52,6 +53,5 @@ function loop(timestamp) {
     lastRender = timestamp
     window.requestAnimationFrame(loop)
 }
-var lastRender = 0
 
 window.requestAnimationFrame(loop)
