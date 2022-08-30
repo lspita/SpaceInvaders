@@ -3,7 +3,6 @@ import Bullet from "./bullet.js"
 
 export default class Player extends GameObject {
 
-    // # = private
     static #MAX_LEVEL = 3
 
     constructor() {

@@ -1,3 +1,4 @@
+import { AlienGroup } from './enemy.js'
 import GameObject from './engine.js'
 import Player from './player.js'
 
@@ -53,5 +54,8 @@ function loop(timestamp) {
     lastRender = timestamp
     window.requestAnimationFrame(loop)
 }
+
+
+new AlienGroup()
 
 window.requestAnimationFrame(loop)

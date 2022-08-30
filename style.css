@@ -24,6 +24,8 @@ body {
     position: absolute;
     top: 110vh;
     visibility: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 .player {
@@ -35,5 +37,18 @@ body {
 .bullet {
     width: 20px;
     height: auto;
-    outline: greenyellow solid 1px;
+    outline: green solid 1px;
+}
+
+.alien {
+    width: 90px;
+    height: auto;
+    outline: red solid 1px;
+    position: relative;
+    top: 0;
+}
+
+.alien-group {
+    height: 90px;
+    outline: cyan solid 2px;
 }

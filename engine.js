@@ -2,8 +2,12 @@ export default class GameObject {
 
     static currentObjects = []
 
-    constructor(customClass) {
-        this.element = document.createElement('img')
+    /**
+     * @param {string?} customClass 
+     * @param {string?} element 
+     */
+    constructor(customClass, element = 'img') {
+        this.element = document.createElement(element)
         this.element.classList.add('game-object')
         if (customClass) {
             this.element.classList.add(customClass)
