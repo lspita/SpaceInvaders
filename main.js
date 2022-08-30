@@ -42,7 +42,7 @@ function draw() {
 var lastRender = 0
 
 /**
- * @param {number} timestamp 
+ * @param {number} timestamp animattion frame tiks between frames
  */
 function loop(timestamp) {
     let deltaTime = (timestamp - lastRender) / 1000

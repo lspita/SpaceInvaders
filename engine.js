@@ -22,10 +22,13 @@ export default class GameObject {
      * @returns 
      */
     setup(cb) {
+        // if it's still not rendered (height 0) request setup again
         if (this.element.height <= 0) {
             window.requestAnimationFrame(this.setup.bind(this))
             return
         }
+
+        // when it's rendered request dimensions and call the cb
         this.rect = this.element.getBoundingClientRect()
         this.element.height = this.rect.height
         this.element.style.visibility = 'visible'
