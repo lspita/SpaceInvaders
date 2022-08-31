@@ -21,7 +21,6 @@ export default class Bullet extends GameObject {
                 this.shooter.rect.bottom :
                 this.shooter.rect.top - this.rect.height
             )
-            console.log(this);
         })
     }
 

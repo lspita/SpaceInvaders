@@ -50,5 +50,11 @@ body {
 
 .alien-group {
     height: 90px;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
     outline: cyan solid 2px;
+    overflow: hidden;
 }

@@ -23,6 +23,7 @@ export class Alien extends GameObject {
             // this._fire_interval = setInterval(() => {
             //     new Bullet(this, true)
             // }, 1000 / this.firerate)
+            console.log(this);
             new Bullet(this, true)
         })
     }
@@ -38,20 +39,22 @@ export class Alien extends GameObject {
 
 export class AlienGroup extends GameObject {
 
+    static #spawn_y = -90
+
     constructor() {
         super('alien-group', 'div')
     }
 
     setup() {
         super.setup(() => {
+            AlienGroup.#spawn_y += (window.innerHeight / 15) + 90
+            this.rect.y = AlienGroup.#spawn_y
             //TODO Fix NaN in dimensions
-
-            this.rect.x = (window.innerWidth - this.rect.width) / 2
-            console.log("file: enemy.js ~ line 48 ~ AlienGroup ~ super.setup ~ window.innerWidth", window.innerWidth, this.rect.width)
-            this.rect.y = (window.innerHeight - this.rect.height) / 2
-            let a = new Alien()
-            console.log(a);
-            this.element.appendChild(a.element)
+            this.element.appendChild(new Alien().element)
+            this.element.appendChild(new Alien().element)
+            this.element.appendChild(new Alien().element)
+            this.element.appendChild(new Alien().element)
+            this.element.appendChild(new Alien().element)
         })
     }
 
