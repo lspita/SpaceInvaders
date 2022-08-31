@@ -18,7 +18,6 @@ export default class GameObject {
             y: 0
         }
         this.speed = 0
-        this.setup()
     }
 
     /**

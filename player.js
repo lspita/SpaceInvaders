@@ -15,6 +15,8 @@ export default class Player extends GameObject {
         this.firerate = 2
         this._fire_interval = null
         this._prevent_spam = false
+
+        this.setup()
     }
 
     /**

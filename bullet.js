@@ -12,14 +12,17 @@ export default class Bullet extends GameObject {
             y: (enemy_bullet ? 1 : -1)
         }
         this.element.src = `assets/${(enemy_bullet ? 'enemies/' : 'player/')}bullet.png`
+
+        this.setup()
     }
 
     setup() {
         super.setup(() => {
-            this.rect.x = this.shooter.rect.x + this.shooter.rect.width / 2 - this.rect.width / 2
+            let rect = this.shooter.element.getBoundingClientRect()
+            this.rect.x = rect.x + rect.width / 2 - this.rect.width / 2
             this.rect.y = (this.enemy_bullet ?
-                this.shooter.rect.bottom :
-                this.shooter.rect.top - this.rect.height
+                rect.bottom :
+                rect.top - this.rect.height
             )
         })
     }

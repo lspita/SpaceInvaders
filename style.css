@@ -45,12 +45,11 @@ body {
     height: auto;
     outline: red solid 1px;
     position: relative;
-    top: 0;
 }
 
 .alien-group {
     height: 90px;
-    width: 100vw;
+    width: 200vw;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
