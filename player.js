@@ -141,7 +141,7 @@ export default class Player extends GameObject {
         this.level++
         this.idle_image = `assets/player/level${this.level}/idle.png`
         this.active_image = `assets/player/level${this.level}/active.png`
-        this.speed += 80
+        this.speed += 100
         this.firerate += 1
     }
 }

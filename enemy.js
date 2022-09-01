@@ -9,10 +9,9 @@ export class Alien extends GameObject {
      * @param {AlienGroup} group 
      * @param {number} firerate 
      */
-    constructor(group, firerate) {
+    constructor(group) {
         super('alien')
         this.group = group
-        this.firerate = firerate
         this._fire_interval = null
         this.element.src = `assets/enemies/alien${(Alien.#color2 ? 2 : 1)}.png`
         Alien.#color2 = !Alien.#color2
@@ -30,7 +29,7 @@ export class Alien extends GameObject {
             this.rect.x = this.rect.y = 0
             this._fire_interval = setInterval(() => {
                 new Bullet(this, true)
-            }, 1000 / this.firerate)
+            }, 1000)
         })
     }
 
@@ -52,11 +51,10 @@ export class AlienGroup extends GameObject {
      * @param {number} speed 
      * @param {number} firerate 
      */
-    constructor(speed, firerate, left_to_right = false) {
+    constructor(speed, left_to_right = false) {
         super('alien-group', 'div')
         this.speed = speed
         this._left_to_right = left_to_right
-        this.firerate = firerate
         this.movement = {
             y: 0,
             x: (this._left_to_right ? 1 : -1)
@@ -72,7 +70,7 @@ export class AlienGroup extends GameObject {
             this.rect.x = (this._left_to_right ? 0 : window.innerWidth - this.rect.width)
             this.aliens = []
             for (let i = 0; i < AlienGroup.#N_ALIENS; i++) {
-                this.aliens.push(new Alien(this, this.firerate))
+                this.aliens.push(new Alien(this))
             }
         })
     }
