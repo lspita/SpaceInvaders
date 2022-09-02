@@ -73,10 +73,9 @@ export default class GameObject {
      * @returns 
      */
     overlaps(gameobj) {
-        //FIXME
         return !(this.rect.right < gameobj.rect.left ||
             this.rect.left > gameobj.rect.right ||
-            this.rect.top < gameobj.rect.bottom ||
-            this.rect.bottom > gameobj.rect.top)
+            this.rect.top > gameobj.rect.bottom ||
+            this.rect.bottom < gameobj.rect.top)
     }
 }

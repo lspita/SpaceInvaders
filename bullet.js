@@ -36,9 +36,9 @@ export default class Bullet extends GameObject {
         }
 
         GameObject.currentObjects.forEach((obj) => {
-            if (!obj.can_die)
+            if (!obj.can_die || obj == this.shooter)
                 return
-            if (obj != this.shooter && this.overlaps(obj)) {
+            if (this.overlaps(obj)) {
                 console.log(this);
                 obj.die()
             }
