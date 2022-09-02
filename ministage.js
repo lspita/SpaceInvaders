@@ -1,10 +1,6 @@
 export default class Ministage {
 
-    /**
-     * @param {string} tastoPremuto 
-     * @returns 
-     */
-    static muoviGiocatore(tastoPremuto) {
+    static elaboraInput(tastoPremuto) {
         /*
         Le coordinate vengono rappresentate nel seguente modo
         x:0, y:0------------------------|
@@ -40,20 +36,6 @@ export default class Ministage {
         return { 'x': x, 'y': y, 'spara': spara }
     }
 
-    /**
-     * @param {{
-     *  rateoDiFuoco: number,
-     *  velocità: number,
-     *  vitaMassima: number
-     * }} statistiche dati correnti del giocatore
-     * 
-     * 
-     * @returns {{
-     *  rateoDiFuoco: number,
-     *  velocità: number,
-     *  vitaMassima: number
-     * }}
-     */
     static avanzaDiLivello(statistiche) {
         /*
         statistiche contiene i dati correnti, li modifichiamo a piacimento e li rimandiamo indietro per essere applicati
@@ -69,9 +51,6 @@ export default class Ministage {
         return statistiche
     }
 
-    /**
-     * @param {HTMLElement} elemento 
-     */
     static vittoria(elemento) {
         /*
         innerText = testo all'interno dell'elemento
@@ -81,9 +60,6 @@ export default class Ministage {
         elemento.style.color = 'lime'
     }
 
-    /**
-     * @param {HTMLElement} elemento 
-     */
     static gameover(elemento) {
         elemento.innerText = 'Game Over'
         elemento.style.color = 'red'
