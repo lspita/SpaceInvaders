@@ -63,6 +63,7 @@ body {
     font-family: 'Russo One';
     transform-origin: center;
     transition: all 2s linear;
+    text-transform: uppercase;
 }
 
 .center {

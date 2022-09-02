@@ -56,4 +56,22 @@ export default class Ministage {
         statistiche.velocità += 100
         return statistiche
     }
+
+    /**
+     * @param {HTMLElement} elemento 
+     */
+    static vittoria(elemento) {
+        elemento.innerText = 'Vittoria'
+        elemento.style.color = 'lime'
+        elemento.classList.add('center')
+    }
+
+    /**
+     * @param {HTMLElement} elemento 
+     */
+    static gameover(elemento) {
+        elemento.innerText = 'Game Over'
+        elemento.style.color = 'red'
+        elemento.classList.add('center')
+    }
 }

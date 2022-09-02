@@ -1,5 +1,6 @@
 import { AlienGroup } from './enemy.js'
 import GameObject from './engine.js'
+import Ministage from './ministage.js'
 import Player from './player.js'
 
 const pressedKeys = {}
@@ -79,16 +80,12 @@ function loop(timestamp) {
 }
 
 function win() {
-    levelLogger.innerText = 'VITTORIA'
-    levelLogger.style.color = 'lime'
-    levelLogger.classList.add('center')
+    Ministage.vittoria(levelLogger)
     win = () => { }
 }
 
 function gameover() {
-    levelLogger.innerText = 'GAME OVER'
-    levelLogger.style.color = 'red'
-    levelLogger.classList.add('center')
+    Ministage.gameover(levelLogger)
     gameover = () => { }
 }
 
