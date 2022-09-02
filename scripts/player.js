@@ -57,7 +57,6 @@ export default class Player extends GameObject {
         // }
         try {
             let result = Ministage.muoviGiocatore(e.key)
-            console.log(result);
             this.#input.x = (result.x == 0 ? this.#input.x : result.x)
             this.#input.y = (result.y == 0 ? this.#input.y : result.y)
             if (result.spara) {
