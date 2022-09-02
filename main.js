@@ -27,7 +27,7 @@ const lastLevel = 3
 var currentLevel = 1
 var direction = !!Math.round(Math.random())
 
-// var alienGoups = [new AlienGroup(alienGroupBaseSpeed, !direction)]
+var alienGoups = [new AlienGroup(alienGroupBaseSpeed, !direction)]
 var nextLevel = true
 
 var lastRender = 0
@@ -41,37 +41,37 @@ function loop(timestamp) {
     update(deltaTime)
     draw()
 
-    // if (player.gameover) {
-    //     gameover()
-    // }
+    if (player.gameover) {
+        gameover()
+    }
 
-    // for (let i = 0; i < alienGoups.length; i++) {
-    //     const group = alienGoups[i];
-    //     if (group.aliens.length > 0) {
-    //         nextLevel = false
-    //         break
-    //     }
-    // }
-    // if (nextLevel) {
-    //     currentLevel++
-    //     let nGroups = alienGoups.length + 1
-    //     alienGoups.forEach((group) => {
-    //         group.destroy()
-    //     })
-    //     alienGoups = []
+    for (let i = 0; i < alienGoups.length; i++) {
+        const group = alienGoups[i];
+        if (group.aliens.length > 0) {
+            nextLevel = false
+            break
+        }
+    }
+    if (nextLevel) {
+        currentLevel++
+        let nGroups = alienGoups.length + 1
+        alienGoups.forEach((group) => {
+            group.destroy()
+        })
+        alienGoups = []
 
-    //     if (currentLevel <= lastLevel) {
-    //         for (let i = 0; i < nGroups; i++) {
-    //             alienGoups.push(new AlienGroup(alienGroupBaseSpeed + (100 * i), direction))
-    //             direction = !direction
-    //         }
-    //         player.upgrade()
-    //         console.log(`LEVEL ${currentLevel}: START!`);
-    //     }
-    //     else {
-    //         win()
-    //     }
-    // }
+        if (currentLevel <= lastLevel) {
+            for (let i = 0; i < nGroups; i++) {
+                alienGoups.push(new AlienGroup(alienGroupBaseSpeed + (100 * i), direction))
+                direction = !direction
+            }
+            player.upgrade()
+            console.log(`LEVEL ${currentLevel}: START!`);
+        }
+        else {
+            win()
+        }
+    }
 
     nextLevel = true
     lastRender = timestamp

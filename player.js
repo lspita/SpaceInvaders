@@ -55,9 +55,7 @@ export default class Player extends GameObject {
                 this.upgrade()
                 break;
         }
-        console.log('%cKeyDown', 'color: red;');
         this.#calcMovement()
-
     }
 
     /**
@@ -82,12 +80,10 @@ export default class Player extends GameObject {
                 this.stopShooting()
                 break;
         }
-        console.log('%cKeyUp', 'color: green;');
         this.#calcMovement()
     }
 
     #calcMovement() {
-        console.log(`Input ${JSON.stringify(this.#input)}`);
         if (this.#input.x == 0 && this.#input.y == 0) {
             this.movement = this.#input
             return
@@ -98,8 +94,6 @@ export default class Player extends GameObject {
             this.movement.x = this.#input.x / magnitude
             this.movement.y = this.#input.y / magnitude
         }
-
-        console.log(`Mov ${JSON.stringify(this.movement)}`);
     }
     /**
      * @param {number} deltaTime 
