@@ -1,4 +1,4 @@
-import Ministage from "./ministage.js"
+import Ministage from "../ministage.js"
 import GameObject from "./engine.js"
 import Bullet from "./bullet.js"
 
