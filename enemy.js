@@ -4,9 +4,9 @@ import Bullet from "./bullet.js";
 export class Alien extends GameObject {
 
     static #color2 = false
-    #fire_interval = null
-    #spawn_offset = 0
-    #n_alien = 0
+    #fireInterval = null
+    #spawnY = 0
+    #nAlien = 0
 
     /**
      * @param {AlienGroup} group 
@@ -15,21 +15,18 @@ export class Alien extends GameObject {
     constructor(group, spawn_offset) {
         super('alien')
         this.group = group
-        this.#spawn_offset = spawn_offset
+        this.#spawnY = spawn_offset
         this.element.src = `assets/enemies/alien${(Alien.#color2 ? 2 : 1)}.png`
         Alien.#color2 = !Alien.#color2
         this.speed = this.group.speed
         this.movement = this.group.movement
-        this.#n_alien = this.group.aliens.length
-        this.setup()
-    }
+        this.#nAlien = this.group.aliens.length
 
-    setup() {
-        super.setup(() => {
-            this.rect.y = this.#spawn_offset
-            this.rect.x = this.group.rect.x + ((this.group.rect.width / AlienGroup.N_ALIENS) * (this.#n_alien + 0.5)) - (this.rect.width / 2)
+        this.setup(() => {
+            this.rect.y = this.#spawnY
+            this.rect.x = this.group.rect.x + ((this.group.rect.width / AlienGroup.N_ALIENS) * (this.#nAlien + 0.5)) - (this.rect.width / 2)
 
-            this.#fire_interval = setInterval(() => {
+            this.#fireInterval = setInterval(() => {
                 new Bullet(this, true)
             }, 750)
         })
@@ -43,7 +40,8 @@ export class Alien extends GameObject {
     }
 
     destroy() {
-        clearInterval(this.#fire_interval)
+        clearInterval(this.#fireInterval)
+        this.#fireInterval = null
         this.group.aliens.splice(this.group.aliens.indexOf(this), 1)
         super.destroy()
     }
@@ -52,8 +50,9 @@ export class Alien extends GameObject {
 
 export class AlienGroup extends GameObject {
 
-    static #spawn_y = -90
+    static #spawnY = -90
     static N_ALIENS = 5
+    #isFromLeft = false
 
     /**
      * @param {number} speed 
@@ -62,23 +61,19 @@ export class AlienGroup extends GameObject {
     constructor(speed, left_to_right = false) {
         super('alien-group', 'div')
         this.speed = speed
-        this._left_to_right = left_to_right
+        this.#isFromLeft = left_to_right
         this.movement = {
             y: 0,
-            x: (this._left_to_right ? 1 : -1)
+            x: (this.#isFromLeft ? 1 : -1)
         }
         this.getDamage = false
-        this.setup()
-    }
-
-    setup() {
-        super.setup(() => {
-            AlienGroup.#spawn_y += (window.innerHeight / 15) + 90
-            this.rect.y = AlienGroup.#spawn_y
-            this.rect.x = (this._left_to_right ? 0 : window.innerWidth - this.rect.width)
+        this.setup(() => {
+            AlienGroup.#spawnY += (window.innerHeight / 15) + 90
+            this.rect.y = AlienGroup.#spawnY
+            this.rect.x = (this.#isFromLeft ? 0 : window.innerWidth - this.rect.width)
             this.aliens = []
             for (let i = 0; i < AlienGroup.N_ALIENS; i++) {
-                this.aliens.push(new Alien(this, AlienGroup.#spawn_y))
+                this.aliens.push(new Alien(this, AlienGroup.#spawnY))
             }
         })
     }
@@ -94,7 +89,7 @@ export class AlienGroup extends GameObject {
     }
 
     destroy() {
-        AlienGroup.#spawn_y -= (window.innerHeight / 15) + 90
+        AlienGroup.#spawnY -= (window.innerHeight / 15) + 90
         super.destroy()
     }
 

@@ -4,15 +4,19 @@ import Bullet from "./bullet.js"
 export default class Player extends GameObject {
 
     static #MAX_LEVEL = 3
-    #fire_interval = null
-    #prevent_spam = false
+    #fireInterval = null
+    #preventSpam = false
+    #input = {
+        x: 0,
+        y: 0
+    }
 
     constructor() {
         super('player')
         this.level = 1
-        this.idle_image = `assets/player/level${this.level}/idle.png`
-        this.active_image = `assets/player/level${this.level}/active.png`
-        this.element.src = this.idle_image
+        this.idleImage = `assets/player/level${this.level}/idle.png`
+        this.activeImage = `assets/player/level${this.level}/active.png`
+        this.element.src = this.idleImage
         this.speed = 300
         this.firerate = 2
         this.healthbar = document.getElementById('healthbar')
@@ -20,26 +24,29 @@ export default class Player extends GameObject {
         this.maxHealth = 3
         this.gameover = false
 
-        this.setup()
+        this.setup(() => {
+            this.rect.x = (window.innerWidth - this.rect.width) / 2
+            this.rect.y = window.innerHeight - this.rect.height - (window.innerHeight / 10)
+        })
     }
 
     /**
      * @param {KeyboardEvent} e 
-     * @param {Object<string, boolean>} pressed_keys 
+     * @param {Object<string, boolean>} pressedKeys 
      */
-    onkeydown(e, pressed_keys) {
+    onkeydown(e, pressedKeys) {
         switch (e.key) {
             case 'ArrowRight':
-                this.movement.x = 1
+                this.#input.x = 1
                 break;
             case 'ArrowLeft':
-                this.movement.x = -1
+                this.#input.x = -1
                 break;
             case 'ArrowUp':
-                this.movement.y = -1
+                this.#input.y = -1
                 break;
             case 'ArrowDown':
-                this.movement.y = 1
+                this.#input.y = 1
                 break;
             case ' ':
                 this.startShooting()
@@ -48,57 +55,52 @@ export default class Player extends GameObject {
                 this.upgrade()
                 break;
         }
+        console.log('%cKeyDown', 'color: red;');
+        this.#calcMovement()
 
-        let magnitude = Math.sqrt(this.movement.x ** 2 + this.movement.y ** 2)
-        if (magnitude != 0) {
-            this.movement.x /= magnitude
-            this.movement.y /= magnitude
-        }
     }
 
     /**
      * @param {KeyboardEvent} e 
-     * @param {Object<string, boolean>} pressed_keys 
+     * @param {Object<string, boolean>} pressedKeys 
      */
-    onkeyup(e, pressed_keys) {
+    onkeyup(e, pressedKeys) {
         switch (e.key) {
             case 'ArrowRight':
-                if (this.movement.x == Math.SQRT1_2) {
-                    this.movement.y = Math.round(this.movement.y * Math.SQRT2)
-                }
-                this.movement.x = (pressed_keys['ArrowLeft'] ? -1 : 0)
+                this.#input.x = (pressedKeys['ArrowLeft'] ? -1 : 0)
                 break;
             case 'ArrowLeft':
-                if (this.movement.x == -Math.SQRT1_2) {
-                    this.movement.y = Math.round(this.movement.y * Math.SQRT2)
-                }
-                this.movement.x = (pressed_keys['ArrowRight'] ? 1 : 0)
+                this.#input.x = (pressedKeys['ArrowRight'] ? 1 : 0)
                 break;
             case 'ArrowDown':
-                if (this.movement.y == Math.SQRT1_2) {
-                    this.movement.x = Math.round(this.movement.x * Math.SQRT2)
-                }
-                this.movement.y = (pressed_keys['ArrowUp'] ? -1 : 0)
+                this.#input.y = (pressedKeys['ArrowUp'] ? -1 : 0)
                 break;
             case 'ArrowUp':
-                if (this.movement.y == -Math.SQRT1_2) {
-                    this.movement.x = Math.round(this.movement.x * Math.SQRT2)
-                }
-                this.movement.y = (pressed_keys['ArrowDown'] ? 1 : 0)
+                this.#input.y = (pressedKeys['ArrowDown'] ? 1 : 0)
                 break;
             case ' ':
                 this.stopShooting()
                 break;
         }
+        console.log('%cKeyUp', 'color: green;');
+        this.#calcMovement()
     }
 
-    setup() {
-        super.setup(() => {
-            this.rect.x = (window.innerWidth - this.rect.width) / 2
-            this.rect.y = window.innerHeight - this.rect.height - (window.innerHeight / 10)
-        })
-    }
+    #calcMovement() {
+        console.log(`Input ${JSON.stringify(this.#input)}`);
+        if (this.#input.x == 0 && this.#input.y == 0) {
+            this.movement = this.#input
+            return
+        }
 
+        let magnitude = Math.sqrt(Math.pow(this.#input.x, 2) + Math.pow(this.#input.y, 2))
+        if (magnitude != 0) {
+            this.movement.x = this.#input.x / magnitude
+            this.movement.y = this.#input.y / magnitude
+        }
+
+        console.log(`Mov ${JSON.stringify(this.movement)}`);
+    }
     /**
      * @param {number} deltaTime 
      */
@@ -115,27 +117,27 @@ export default class Player extends GameObject {
             this.rect.y = resety
         }
 
-        this.element.src = (this.movement.x != 0 || this.movement.y != 0 ? this.active_image : this.idle_image)
+        this.element.src = (this.movement.x != 0 || this.movement.y != 0 ? this.activeImage : this.idleImage)
     }
 
     startShooting() {
-        if (this.#prevent_spam || this.#fire_interval) {
+        if (this.#preventSpam || this.#fireInterval) {
             return
         }
         new Bullet(this, false)
-        this.#prevent_spam = true
+        this.#preventSpam = true
         setTimeout(() => {
-            this.#prevent_spam = false
+            this.#preventSpam = false
         }, 1000 / this.firerate)
 
-        this.#fire_interval = setInterval(() => {
+        this.#fireInterval = setInterval(() => {
             new Bullet(this, false)
         }, 1000 / this.firerate)
     }
 
     stopShooting() {
-        clearInterval(this.#fire_interval)
-        this.#fire_interval = null
+        clearInterval(this.#fireInterval)
+        this.#fireInterval = null
     }
 
     /**
@@ -182,15 +184,23 @@ export default class Player extends GameObject {
             return
         }
         this.level++
-        this.idle_image = `assets/player/level${this.level}/idle.png`
-        this.active_image = `assets/player/level${this.level}/active.png`
+        this.idleImage = `assets/player/level${this.level}/idle.png`
+        this.activeImage = `assets/player/level${this.level}/active.png`
         this.speed += 100
         this.firerate += 1
+        if (this.#fireInterval !== null) {
+            clearInterval(this.#fireInterval)
+            this.#fireInterval = setInterval(() => {
+                new Bullet(this, false)
+            }, 1000 / this.firerate)
+        }
         this.maxHealth++
         this.#refillHealth()
     }
 
     destroy() {
+        clearInterval(this.#fireInterval)
+        this.#fireInterval = null
         this.gameover = true
         super.destroy()
     }

@@ -6,12 +6,23 @@ body {
     background-color: #202020;
     color: #fefefe;
     overflow: hidden;
-    background-image: url('assets/background.jpeg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    background-image: url('assets/background.png');
+    background-repeat: repeat;
     width: 100%;
     height: 100%;
+    animation: bgscroll 10s infinite linear;
+
+}
+
+@keyframes bgscroll {
+    from {
+        background-position: 0 512px;
+    }
+
+    to {
+        background-position: 512px 0;
+        /*Image size*/
+    }
 }
 
 *,
@@ -39,6 +50,13 @@ body {
 #healthbar * {
     width: 60px;
     margin: 10px;
+}
+
+#message {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
 }
 
 .game-object {

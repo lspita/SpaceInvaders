@@ -29,7 +29,7 @@ export default class GameObject {
     setup(cb) {
         // if it's still not rendered (height 0) request setup again
         if (this.element.height <= 0) {
-            window.requestAnimationFrame(this.setup.bind(this))
+            window.requestAnimationFrame(this.setup.bind(this, cb))
             return
         }
 
@@ -37,21 +37,21 @@ export default class GameObject {
         this.rect = this.element.getBoundingClientRect()
         this.element.height = this.rect.height
         this.element.style.visibility = 'visible'
-        GameObject.currentObjects.push(this)
         cb.bind(this)()
+        GameObject.currentObjects.push(this)
     }
 
     /**
      * @param {KeyboardEvent} e 
-     * @param {Object<string, boolean>} pressed_keys 
+     * @param {Object<string, boolean>} pressedKeys 
      */
-    onkeydown(e, pressed_keys) { }
+    onkeydown(e, pressedKeys) { }
 
     /**
      * @param {KeyboardEvent} e 
-     * @param {Object<string, boolean>} pressed_keys 
+     * @param {Object<string, boolean>} pressedKeys 
      */
-    onkeyup(e, pressed_keys) { }
+    onkeyup(e, pressedKeys) { }
 
     /**
      * @param {number} deltaTime 
