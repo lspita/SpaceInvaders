@@ -12,17 +12,16 @@ export default class Bullet extends GameObject {
             y: (enemy_bullet ? 1 : -1)
         }
         this.element.src = `assets/${(enemy_bullet ? 'enemies/' : 'player/')}bullet.png`
-
+        this.can_die = false
         this.setup()
     }
 
     setup() {
         super.setup(() => {
-            let rect = this.shooter.element.getBoundingClientRect()
-            this.rect.x = rect.x + rect.width / 2 - this.rect.width / 2
+            this.rect.x = this.shooter.rect.x + this.shooter.rect.width / 2 - this.rect.width / 2
             this.rect.y = (this.enemy_bullet ?
-                rect.bottom :
-                rect.top - this.rect.height
+                this.shooter.rect.bottom :
+                this.shooter.rect.top - this.rect.height
             )
         })
     }
@@ -35,5 +34,14 @@ export default class Bullet extends GameObject {
         if (this.rect.bottom <= 0 || this.rect.top >= window.innerHeight) {
             this.destroy()
         }
+
+        GameObject.currentObjects.forEach((obj) => {
+            if (!obj.can_die)
+                return
+            if (obj != this.shooter && this.overlaps(obj)) {
+                console.log(this);
+                obj.die()
+            }
+        })
     }
 }

@@ -4,32 +4,36 @@ import Bullet from "./bullet.js";
 export class Alien extends GameObject {
 
     static #color2 = false
+    #fire_interval = null
+    #spawn_offset = 0
+    #n_alien = 0
 
     /**
      * @param {AlienGroup} group 
      * @param {number} firerate 
      */
-    constructor(group) {
+    constructor(group, spawn_offset) {
         super('alien')
         this.group = group
-        this._fire_interval = null
+        this.#spawn_offset = spawn_offset
         this.element.src = `assets/enemies/alien${(Alien.#color2 ? 2 : 1)}.png`
         Alien.#color2 = !Alien.#color2
-
+        this.speed = this.group.speed
+        this.movement = this.group.movement
+        this.#n_alien = this.group.aliens.length
         this.setup()
     }
 
     setup() {
         super.setup(() => {
-            // this._fire_interval = setInterval(() => {
-            //     new Bullet(this, true)
-            // }, 1000 / this.firerate)
-            // console.log(this);
-            this.group.element.appendChild(this.element)
-            this.rect.x = this.rect.y = 0
-            this._fire_interval = setInterval(() => {
+            this.rect.y = this.#spawn_offset
+            this.rect.x = this.group.rect.x + ((this.group.rect.width / AlienGroup.N_ALIENS) * (this.#n_alien + 0.5)) - (this.rect.width / 2)
+
+            this.#fire_interval = setInterval(() => {
                 new Bullet(this, true)
-            }, 1000)
+            }, 750)
+            // new Bullet(this, true)
+
         })
     }
 
@@ -45,7 +49,7 @@ export class Alien extends GameObject {
 export class AlienGroup extends GameObject {
 
     static #spawn_y = -90
-    static #N_ALIENS = 5
+    static N_ALIENS = 5
 
     /**
      * @param {number} speed 
@@ -59,7 +63,7 @@ export class AlienGroup extends GameObject {
             y: 0,
             x: (this._left_to_right ? 1 : -1)
         }
-
+        this.can_die = false
         this.setup()
     }
 
@@ -69,8 +73,8 @@ export class AlienGroup extends GameObject {
             this.rect.y = AlienGroup.#spawn_y
             this.rect.x = (this._left_to_right ? 0 : window.innerWidth - this.rect.width)
             this.aliens = []
-            for (let i = 0; i < AlienGroup.#N_ALIENS; i++) {
-                this.aliens.push(new Alien(this))
+            for (let i = 0; i < AlienGroup.N_ALIENS; i++) {
+                this.aliens.push(new Alien(this, AlienGroup.#spawn_y))
             }
         })
     }

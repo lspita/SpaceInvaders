@@ -57,7 +57,7 @@ function loop(timestamp) {
 
 
 new AlienGroup(300)
-new AlienGroup(350, true)
-new AlienGroup(400)
+// new AlienGroup(350, true)
+// new AlienGroup(400)
 
 window.requestAnimationFrame(loop)

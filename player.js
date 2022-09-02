@@ -4,6 +4,8 @@ import Bullet from "./bullet.js"
 export default class Player extends GameObject {
 
     static #MAX_LEVEL = 3
+    #fire_interval = null
+    #prevent_spam = false
 
     constructor() {
         super('player')
@@ -13,8 +15,6 @@ export default class Player extends GameObject {
         this.element.src = this.idle_image
         this.speed = 300
         this.firerate = 2
-        this._fire_interval = null
-        this._prevent_spam = false
 
         this.setup()
     }
@@ -115,23 +115,23 @@ export default class Player extends GameObject {
     }
 
     startShooting() {
-        if (this._prevent_spam || this._fire_interval) {
+        if (this.#prevent_spam || this.#fire_interval) {
             return
         }
         new Bullet(this, false)
-        this._prevent_spam = true
+        this.#prevent_spam = true
         setTimeout(() => {
-            this._prevent_spam = false
+            this.#prevent_spam = false
         }, 1000 / this.firerate)
 
-        this._fire_interval = setInterval(() => {
+        this.#fire_interval = setInterval(() => {
             new Bullet(this, false)
         }, 1000 / this.firerate)
     }
 
     stopShooting() {
-        clearInterval(this._fire_interval)
-        this._fire_interval = null
+        clearInterval(this.#fire_interval)
+        this.#fire_interval = null
     }
 
     upgrade() {

@@ -6,7 +6,7 @@ export default class GameObject {
      * @param {string?} customClass 
      * @param {string?} element 
      */
-    constructor(customClass, element = 'img') {
+    constructor(customClass, element = 'img', can_die = true) {
         this.element = document.createElement(element)
         this.element.classList.add('game-object')
         if (customClass) {
@@ -18,6 +18,7 @@ export default class GameObject {
             y: 0
         }
         this.speed = 0
+        this.can_die = can_die
     }
 
     /**
@@ -56,5 +57,26 @@ export default class GameObject {
     destroy() {
         GameObject.currentObjects.splice(GameObject.currentObjects.indexOf(this), 1)
         this.element.remove()
+    }
+
+    die() {
+
+        console.log(this);
+        if (!this.can_die) {
+            return
+        }
+        this.element.style.visibility = 'hidden'
+    }
+
+    /**
+     * @param {GameObject} gameobj 
+     * @returns 
+     */
+    overlaps(gameobj) {
+        //FIXME
+        return !(this.rect.right < gameobj.rect.left ||
+            this.rect.left > gameobj.rect.right ||
+            this.rect.top < gameobj.rect.bottom ||
+            this.rect.bottom > gameobj.rect.top)
     }
 }
