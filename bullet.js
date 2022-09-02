@@ -32,7 +32,7 @@ export default class Bullet extends GameObject {
         }
 
         GameObject.currentObjects.forEach((obj) => {
-            if (!obj.getDamage || obj == this.shooter)
+            if (!obj.getDamage || obj == this.shooter || obj.team == this.shooter.team)
                 return
             if (this.overlaps(obj)) {
                 obj.damage()

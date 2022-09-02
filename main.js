@@ -3,7 +3,7 @@ import GameObject from './engine.js'
 import Player from './player.js'
 
 const pressedKeys = {}
-
+const levelLogger = document.getElementById('level')
 const player = new Player()
 
 
@@ -66,7 +66,7 @@ function loop(timestamp) {
                 direction = !direction
             }
             player.upgrade()
-            console.log(`LEVEL ${currentLevel}: START!`);
+            levelLogger.innerText = `LIVELLO ${currentLevel}/${lastLevel}`
         }
         else {
             win()
@@ -79,14 +79,16 @@ function loop(timestamp) {
 }
 
 function win() {
-    console.log('you win');
-
+    levelLogger.innerText = 'VITTORIA'
+    levelLogger.style.color = 'lime'
+    levelLogger.classList.add('center')
     win = () => { }
 }
 
 function gameover() {
-    console.log('you lost');
-
+    levelLogger.innerText = 'GAME OVER'
+    levelLogger.style.color = 'red'
+    levelLogger.classList.add('center')
     gameover = () => { }
 }
 
@@ -109,4 +111,5 @@ function draw() {
     }
 }
 
+levelLogger.innerText = `LIVELLO ${currentLevel}/${lastLevel}`
 window.requestAnimationFrame(loop)

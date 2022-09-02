@@ -20,6 +20,8 @@ export default class GameObject {
         this.speed = 0
         this.health = 1
         this.getDamage = getDamage
+
+        this.team = 'neutral'
     }
 
     /**

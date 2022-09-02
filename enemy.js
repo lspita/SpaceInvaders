@@ -21,7 +21,7 @@ export class Alien extends GameObject {
         this.speed = this.group.speed
         this.movement = this.group.movement
         this.#nAlien = this.group.aliens.length
-
+        this.team = 'enemy'
         this.setup(() => {
             this.rect.y = this.#spawnY
             this.rect.x = this.group.rect.x + ((this.group.rect.width / AlienGroup.N_ALIENS) * (this.#nAlien + 0.5)) - (this.rect.width / 2)
@@ -36,6 +36,7 @@ export class Alien extends GameObject {
      * @param {number} deltaTime 
      */
     update(deltaTime) {
+        this.speed = this.group.speed
         super.update(deltaTime)
     }
 
@@ -43,6 +44,11 @@ export class Alien extends GameObject {
         clearInterval(this.#fireInterval)
         this.#fireInterval = null
         this.group.aliens.splice(this.group.aliens.indexOf(this), 1)
+        this.group.aliens.forEach((alien) => {
+            alien.rect.x = alien.group.rect.x + ((alien.group.rect.width / AlienGroup.N_ALIENS) * (alien.#nAlien + 0.5)) - (alien.rect.width / 2)
+        })
+        this.group.speed *= 1.1
+
         super.destroy()
     }
 
@@ -51,7 +57,7 @@ export class Alien extends GameObject {
 export class AlienGroup extends GameObject {
 
     static #spawnY = -90
-    static N_ALIENS = 5
+    static N_ALIENS = 7
     #isFromLeft = false
 
     /**

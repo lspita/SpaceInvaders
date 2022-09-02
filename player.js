@@ -24,6 +24,8 @@ export default class Player extends GameObject {
         this.maxHealth = 3
         this.gameover = false
 
+        this.team = 'player'
+
         this.setup(() => {
             this.rect.x = (window.innerWidth - this.rect.width) / 2
             this.rect.y = window.innerHeight - this.rect.height - (window.innerHeight / 10)
