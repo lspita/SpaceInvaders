@@ -46,7 +46,6 @@ function loop(timestamp) {
 
     if (player.gameover) {
         gameover()
-        return
     }
 
     for (let i = 0; i < alienGoups.length; i++) {
@@ -64,16 +63,17 @@ function loop(timestamp) {
         })
         alienGoups = []
 
-        if (currentLevel > lastLevel) {
+        if (currentLevel <= lastLevel) {
+            for (let i = 0; i < nGroups; i++) {
+                alienGoups.push(new AlienGroup(alienGroupBaseSpeed + (100 * i), direction))
+                direction = !direction
+            }
+            player.upgrade()
+            console.log(`LEVEL ${currentLevel}: START!`);
+        }
+        else {
             win()
-            return
         }
-        for (let i = 0; i < nGroups; i++) {
-            alienGoups.push(new AlienGroup(alienGroupBaseSpeed + (100 * i), direction))
-            direction = !direction
-        }
-        player.upgrade()
-        console.log(`LEVEL ${currentLevel}: START!`);
     }
 
     nextLevel = true
@@ -83,10 +83,14 @@ function loop(timestamp) {
 
 function win() {
     console.log('you win');
+
+    win = () => { }
 }
 
 function gameover() {
     console.log('you lost');
+
+    gameover = () => { }
 }
 
 
