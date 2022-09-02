@@ -54,20 +54,20 @@ export default class Ministage {
      *  vitaMassima: number
      * }}
      */
-    // static avanzaDiLivello(statistiche) {
-    //     /*
-    //     statistiche contiene i dati correnti, li modifichiamo a piacimento e li rimandiamo indietro per essere applicati
-    //     x += 5 => x = x + 5
-    //     vale anche per:
-    //     -=, *=, /=
-    //     */
+    static avanzaDiLivello(statistiche) {
+        /*
+        statistiche contiene i dati correnti, li modifichiamo a piacimento e li rimandiamo indietro per essere applicati
+        x += 5 => x = x + 5
+        vale anche per:
+        -=, *=, /=
+        */
 
-    //     statistiche.rateoDiFuoco += 1
-    //     statistiche.vitaMassima += 1
-    //     statistiche.velocità += 100
+        statistiche.rateoDiFuoco += 1
+        statistiche.vitaMassima += 1
+        statistiche.velocità += 100
 
-    //     return statistiche
-    // }
+        return statistiche
+    }
 
     /**
      * @param {HTMLElement} elemento 

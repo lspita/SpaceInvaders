@@ -57,6 +57,7 @@ export default class Player extends GameObject {
         // }
         try {
             let result = Ministage.muoviGiocatore(e.key)
+            console.log(result);
             this.#input.x = (result.x == 0 ? this.#input.x : result.x)
             this.#input.y = (result.y == 0 ? this.#input.y : result.y)
             if (result.spara) {
@@ -64,8 +65,9 @@ export default class Player extends GameObject {
             }
             this.#calcMovement()
         } catch (error) {
-            console.log(`c%${error}`, 'color: red')
+            console.log(`%c${error}`, 'color: red')
             this.#input.x = this.#input.y = this.movement.x = this.movement.y = 0
+            pressedKeys[e.key] = false
         }
     }
 
@@ -212,7 +214,7 @@ export default class Player extends GameObject {
             }
             this.#refillHealth()
         } catch (error) {
-            console.log(`c%${error}`, 'color: red')
+            console.log(`%c${error}`, 'color: red')
             return
         }
     }
