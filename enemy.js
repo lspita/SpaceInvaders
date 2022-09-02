@@ -32,8 +32,6 @@ export class Alien extends GameObject {
             this.#fire_interval = setInterval(() => {
                 new Bullet(this, true)
             }, 750)
-            // new Bullet(this, true)
-
         })
     }
 
@@ -42,6 +40,12 @@ export class Alien extends GameObject {
      */
     update(deltaTime) {
         super.update(deltaTime)
+    }
+
+    destroy() {
+        clearInterval(this.#fire_interval)
+        this.group.aliens.splice(this.group.aliens.indexOf(this), 1)
+        super.destroy()
     }
 
 }
@@ -63,7 +67,7 @@ export class AlienGroup extends GameObject {
             y: 0,
             x: (this._left_to_right ? 1 : -1)
         }
-        this.can_die = false
+        this.getDamage = false
         this.setup()
     }
 
@@ -87,6 +91,11 @@ export class AlienGroup extends GameObject {
         if ((this.rect.right - this.rect.width / 2.5) <= 0 || (this.rect.left + this.rect.width / 2.5) >= window.innerWidth) {
             this.movement.x *= -1
         }
+    }
+
+    destroy() {
+        AlienGroup.#spawn_y -= (window.innerHeight / 15) + 90
+        super.destroy()
     }
 
 

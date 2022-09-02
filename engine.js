@@ -6,7 +6,7 @@ export default class GameObject {
      * @param {string?} customClass 
      * @param {string?} element 
      */
-    constructor(customClass, element = 'img', can_die = true) {
+    constructor(customClass, element = 'img', getDamage = true) {
         this.element = document.createElement(element)
         this.element.classList.add('game-object')
         if (customClass) {
@@ -18,7 +18,8 @@ export default class GameObject {
             y: 0
         }
         this.speed = 0
-        this.can_die = can_die
+        this.health = 1
+        this.getDamage = getDamage
     }
 
     /**
@@ -40,6 +41,17 @@ export default class GameObject {
         cb.bind(this)()
     }
 
+    /**
+     * @param {KeyboardEvent} e 
+     * @param {Object<string, boolean>} pressed_keys 
+     */
+    onkeydown(e, pressed_keys) { }
+
+    /**
+     * @param {KeyboardEvent} e 
+     * @param {Object<string, boolean>} pressed_keys 
+     */
+    onkeyup(e, pressed_keys) { }
 
     /**
      * @param {number} deltaTime 
@@ -59,13 +71,18 @@ export default class GameObject {
         this.element.remove()
     }
 
-    die() {
-
-        console.log(this);
-        if (!this.can_die) {
+    /**
+     * 
+     * @param {number} amount 
+     */
+    damage(amount = 1) {
+        if (!this.getDamage) {
             return
         }
-        this.element.style.visibility = 'hidden'
+        this.health -= amount
+        if (this.health <= 0) {
+            this.destroy()
+        }
     }
 
     /**

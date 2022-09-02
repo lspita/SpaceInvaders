@@ -15,6 +15,10 @@ export default class Player extends GameObject {
         this.element.src = this.idle_image
         this.speed = 300
         this.firerate = 2
+        this.healthbar = document.getElementById('healthbar')
+        this.#addHealth(2)
+        this.maxHealth = 3
+        this.gameover = false
 
         this.setup()
     }
@@ -134,6 +138,45 @@ export default class Player extends GameObject {
         this.#fire_interval = null
     }
 
+    /**
+     * @param {number} amount 
+     */
+    #addHealth(amount = 1) {
+        var hearth
+        for (let i = 0; i < amount; i++) {
+            this.health++
+            hearth = document.createElement('img')
+            hearth.src = 'assets/hearth.png'
+            this.healthbar.appendChild(hearth)
+        }
+    }
+
+
+    /**
+     * @param {number} total 
+     */
+    #refillHealth(total = this.maxHealth) {
+        this.healthbar.innerHTML = ''
+        this.health = total
+
+        var hearth
+        for (let i = 0; i < total; i++) {
+            hearth = document.createElement('img')
+            hearth.src = 'assets/hearth.png'
+            this.healthbar.appendChild(hearth)
+        }
+    }
+
+    /**
+     * @param {number} amount 
+     */
+    damage(amount = 1) {
+        super.damage(amount)
+        for (let i = this.healthbar.childElementCount - 1; i > this.health - 1; i--) {
+            this.healthbar.children[i].src = 'assets/lost_hearth.png'
+        }
+    }
+
     upgrade() {
         if (this.level >= Player.#MAX_LEVEL) {
             return
@@ -143,5 +186,12 @@ export default class Player extends GameObject {
         this.active_image = `assets/player/level${this.level}/active.png`
         this.speed += 100
         this.firerate += 1
+        this.maxHealth++
+        this.#refillHealth()
+    }
+
+    destroy() {
+        this.gameover = true
+        super.destroy()
     }
 }

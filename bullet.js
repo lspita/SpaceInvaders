@@ -12,7 +12,7 @@ export default class Bullet extends GameObject {
             y: (enemy_bullet ? 1 : -1)
         }
         this.element.src = `assets/${(enemy_bullet ? 'enemies/' : 'player/')}bullet.png`
-        this.can_die = false
+        this.getDamage = false
         this.setup()
     }
 
@@ -36,11 +36,11 @@ export default class Bullet extends GameObject {
         }
 
         GameObject.currentObjects.forEach((obj) => {
-            if (!obj.can_die || obj == this.shooter)
+            if (!obj.getDamage || obj == this.shooter)
                 return
             if (this.overlaps(obj)) {
-                console.log(this);
-                obj.die()
+                obj.damage()
+                this.destroy()
             }
         })
     }
