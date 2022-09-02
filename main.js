@@ -81,13 +81,13 @@ function loop(timestamp) {
 
 function win() {
     Ministage.vittoria(levelLogger)
-    elemento.classList.add('center')
+    levelLogger.classList.add('center')
     win = () => { }
 }
 
 function gameover() {
     Ministage.gameover(levelLogger)
-    elemento.classList.add('center')
+    levelLogger.classList.add('center')
     gameover = () => { }
 }
 

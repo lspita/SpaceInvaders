@@ -90,24 +90,20 @@ body {
 .player {
     width: 120px;
     height: auto;
-    outline: white solid 1px;
 }
 
 .bullet {
     width: 20px;
     height: auto;
-    outline: green solid 1px;
 }
 
 .alien {
     width: 90px;
     height: auto;
-    outline: red solid 1px;
 }
 
 .alien-group {
     height: 90px;
     width: 150%;
-    outline: cyan solid 2px;
     overflow: hidden;
 }
