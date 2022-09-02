@@ -1,3 +1,4 @@
+import Ministage from "./ministage.js"
 import GameObject from "./engine.js"
 import Bullet from "./bullet.js"
 
@@ -37,27 +38,35 @@ export default class Player extends GameObject {
      * @param {Object<string, boolean>} pressedKeys 
      */
     onkeydown(e, pressedKeys) {
-        switch (e.key) {
-            case 'ArrowRight':
-                this.#input.x = 1
-                break;
-            case 'ArrowLeft':
-                this.#input.x = -1
-                break;
-            case 'ArrowUp':
-                this.#input.y = -1
-                break;
-            case 'ArrowDown':
-                this.#input.y = 1
-                break;
-            case ' ':
+        // switch (e.key) {
+        //     case 'ArrowRight':
+        //         this.#input.x = 1
+        //         break;
+        //     case 'ArrowLeft':
+        //         this.#input.x = -1
+        //         break;
+        //     case 'ArrowUp':
+        //         this.#input.y = -1
+        //         break;
+        //     case 'ArrowDown':
+        //         this.#input.y = 1
+        //         break;
+        //     case ' ':
+        //         this.startShooting()
+        //         break;
+        // }
+        try {
+            let result = Ministage.muoviGiocatore(e.key)
+            this.#input.x = (result.x == 0 ? this.#input.x : result.x)
+            this.#input.y = (result.y == 0 ? this.#input.y : result.y)
+            if (result.spara) {
                 this.startShooting()
-                break;
-            case 'u':
-                this.upgrade()
-                break;
+            }
+            this.#calcMovement()
+        } catch (error) {
+            console.log(`c%${error}`, 'color: red')
+            this.#input.x = this.#input.y = this.movement.x = this.movement.y = 0
         }
-        this.#calcMovement()
     }
 
     /**
@@ -82,15 +91,14 @@ export default class Player extends GameObject {
                 this.stopShooting()
                 break;
         }
-        this.#calcMovement()
-    }
-
-    #calcMovement() {
         if (this.#input.x == 0 && this.#input.y == 0) {
             this.movement = this.#input
             return
         }
+        this.#calcMovement()
+    }
 
+    #calcMovement() {
         let magnitude = Math.sqrt(Math.pow(this.#input.x, 2) + Math.pow(this.#input.y, 2))
         if (magnitude != 0) {
             this.movement.x = this.#input.x / magnitude
@@ -179,19 +187,34 @@ export default class Player extends GameObject {
         if (this.level >= Player.#MAX_LEVEL) {
             return
         }
-        this.level++
-        this.idleImage = `assets/player/level${this.level}/idle.png`
-        this.activeImage = `assets/player/level${this.level}/active.png`
-        this.speed += 100
-        this.firerate += 1
-        if (this.#fireInterval !== null) {
-            clearInterval(this.#fireInterval)
-            this.#fireInterval = setInterval(() => {
-                new Bullet(this, false)
-            }, 1000 / this.firerate)
+        // this.speed += 100
+        // this.firerate += 1
+        // this.maxHealth++
+        try {
+            let result = Ministage.avanzaDiLivello({
+                rateoDiFuoco: this.firerate,
+                velocità: this.speed,
+                vitaMassima: this.maxHealth
+            })
+
+            this.speed = result.velocità
+            this.firerate = result.rateoDiFuoco
+            this.maxHealth = result.vitaMassima
+            this.level++
+
+            this.idleImage = `assets/player/level${this.level}/idle.png`
+            this.activeImage = `assets/player/level${this.level}/active.png`
+            if (this.#fireInterval !== null) {
+                clearInterval(this.#fireInterval)
+                this.#fireInterval = setInterval(() => {
+                    new Bullet(this, false)
+                }, 1000 / this.firerate)
+            }
+            this.#refillHealth()
+        } catch (error) {
+            console.log(`c%${error}`, 'color: red')
+            return
         }
-        this.maxHealth++
-        this.#refillHealth()
     }
 
     destroy() {
