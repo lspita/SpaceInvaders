@@ -12,7 +12,7 @@ export default class Ministage {
 
         let valoreX = 0, valoreY = 0
 
-        let spara = false
+        let deveSparare = false
 
         switch (tastoPremuto) {
             case 'ArrowRight': //Freccia a destra
