@@ -10,23 +10,22 @@ export default class Ministage {
         |           +1
         |
         ---------------------- x
-
         */
-        let x = 0, y = 0
+        let valoreX = 0, valoreY = 0
         //di default non spariamo (false)
         let spara = false
         switch (tastoPremuto) {
             case 'ArrowRight':
-                x = 1
+                valoreX = 1
                 break;
             case 'ArrowLeft':
-                x = -1
+                valoreX = -1
                 break;
             case 'ArrowUp':
-                y = -1
+                valoreY = -1
                 break;
             case 'ArrowDown':
-                y = 1
+                valoreY = 1
                 break;
             case ' ': //tasto spazio
                 //se viene premuto il tasto, mettiamo lo sparo a true
@@ -35,7 +34,7 @@ export default class Ministage {
         }
 
         // rimandiamo al gioco il moviment in base all'input (x e y) e se sparare o meno (true/false)
-        return { 'x': x, 'y': y, 'spara': spara }
+        return { 'x': valoreX, 'y': valoreY, 'spara': spara }
     }
 
     static avanzaDiLivello(statistiche) {
