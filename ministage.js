@@ -2,13 +2,15 @@ export default class Ministage {
 
     static elaboraInput(tastoPremuto) {
         /*
-        Le coordinate vengono rappresentate nel seguente modo
-        x:0, y:0------------------------|
-        |                               |
-        |                               |
-        |                               |
-        |                               |
-        |________________________x:1, y:1
+        Il movimento viene rappresentato nel seguente modo
+        y            -1
+        |            |
+        |       -1 - o - +1
+        |            |
+        |           +1
+        |
+        ---------------------- x
+
         */
         let x = 0, y = 0
         //di default non spariamo (false)
