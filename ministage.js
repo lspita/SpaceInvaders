@@ -1,31 +1,30 @@
 export default class Ministage {
 
     static elaboraInput(tastoPremuto) {
-        /*
-        Il movimento viene rappresentato nel seguente modo
-        y            -1
-        |            |
-        |       -1 - 🚀 - +1
-        |            |
-        |           +1
-        |
-        ---------------------- x
-        */
+        // Il movimento viene rappresentato nel seguente modo
+        // y            -1
+        // |            |
+        // |       -1 - 🚀 - +1
+        // |            |
+        // |           +1
+        // |
+        // ---------------------- x
+
         let valoreX = 0, valoreY = 0
 
         let spara = false
 
         switch (tastoPremuto) {
-            case 'ArrowRight':
+            case 'ArrowRight': //Freccia a destra
                 valoreX = 1
                 break;
-            case 'ArrowLeft':
+            case 'ArrowLeft': //Freccia a sinistra
                 valoreX = -1
                 break;
-            case 'ArrowUp':
+            case 'ArrowUp': //Freccia su
                 valoreY = -1
                 break;
-            case 'ArrowDown':
+            case 'ArrowDown': //Freccia giù
                 valoreY = 1
                 break;
             case ' ': //tasto spazio
