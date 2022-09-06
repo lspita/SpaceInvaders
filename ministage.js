@@ -12,8 +12,9 @@ export default class Ministage {
         ---------------------- x
         */
         let valoreX = 0, valoreY = 0
-        //di default non spariamo (false)
+
         let spara = false
+
         switch (tastoPremuto) {
             case 'ArrowRight':
                 valoreX = 1
