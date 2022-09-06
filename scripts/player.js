@@ -55,19 +55,18 @@ export default class Player extends GameObject {
         //         this.startShooting()
         //         break;
         // }
-        try {
-            let result = Ministage.elaboraInput(e.key)
-            this.#input.x = (result.x == 0 ? this.#input.x : result.x)
-            this.#input.y = (result.y == 0 ? this.#input.y : result.y)
-            if (result.spara) {
-                this.startShooting()
-            }
-            this.#calcMovement()
-        } catch (error) {
-            console.log(`%c${error}`, 'color: red')
+        let result = Ministage.elaboraInput(e.key)
+        if (result == undefined) {
             this.#input.x = this.#input.y = this.movement.x = this.movement.y = 0
             pressedKeys[e.key] = false
+            return
         }
+        this.#input.x = (result.x == 0 ? this.#input.x : result.x)
+        this.#input.y = (result.y == 0 ? this.#input.y : result.y)
+        if (result.spara) {
+            this.startShooting()
+        }
+        this.#calcMovement()
     }
 
     /**
@@ -191,31 +190,29 @@ export default class Player extends GameObject {
         // this.speed += 100
         // this.firerate += 1
         // this.maxHealth++
-        try {
-            let result = Ministage.avanzaDiLivello({
-                rateoDiFuoco: this.firerate,
-                velocità: this.speed,
-                vitaMassima: this.maxHealth
-            })
-
-            this.speed = result.velocità
-            this.firerate = result.rateoDiFuoco
-            this.maxHealth = result.vitaMassima
-            this.level++
-
-            this.idleImage = `assets/player/level${this.level}/idle.png`
-            this.activeImage = `assets/player/level${this.level}/active.png`
-            if (this.#fireInterval !== null) {
-                clearInterval(this.#fireInterval)
-                this.#fireInterval = setInterval(() => {
-                    new Bullet(this, false)
-                }, 1000 / this.firerate)
-            }
-            this.#refillHealth()
-        } catch (error) {
-            console.log(`%c${error}`, 'color: red')
+        let result = Ministage.avanzaDiLivello({
+            rateoDiFuoco: this.firerate,
+            velocità: this.speed,
+            vitaMassima: this.maxHealth
+        })
+        if (result == undefined) {
             return
         }
+
+        this.speed = result.velocità
+        this.firerate = result.rateoDiFuoco
+        this.maxHealth = result.vitaMassima
+        this.level++
+
+        this.idleImage = `assets/player/level${this.level}/idle.png`
+        this.activeImage = `assets/player/level${this.level}/active.png`
+        if (this.#fireInterval !== null) {
+            clearInterval(this.#fireInterval)
+            this.#fireInterval = setInterval(() => {
+                new Bullet(this, false)
+            }, 1000 / this.firerate)
+        }
+        this.#refillHealth()
     }
 
     destroy() {
