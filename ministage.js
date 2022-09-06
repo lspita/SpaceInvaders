@@ -5,7 +5,7 @@ export default class Ministage {
         Il movimento viene rappresentato nel seguente modo
         y            -1
         |            |
-        |       -1 - o - +1
+        |       -1 - 🚀 - +1
         |            |
         |           +1
         |
