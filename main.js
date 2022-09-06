@@ -80,13 +80,15 @@ function loop(timestamp) {
 }
 
 function win() {
-    Ministage.vittoria(levelLogger)
+    levelLogger.innerText = 'Vittoria'
+    levelLogger.style.color = 'lime'
     levelLogger.classList.add('center')
     win = () => { }
 }
 
 function gameover() {
-    Ministage.gameover(levelLogger)
+    levelLogger.innerText = 'Game Over'
+    levelLogger.style.color = 'red'
     levelLogger.classList.add('center')
     gameover = () => { }
 }
