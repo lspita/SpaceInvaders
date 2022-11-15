@@ -1,7 +1,7 @@
 import { AlienGroup } from './scripts/enemy.js'
 import GameObject from './scripts/engine.js'
-import Ministage from './ministage.js'
 import Player from './scripts/player.js'
+import config from './config.js'
 
 const pressedKeys = {}
 const levelLogger = document.getElementById('level')
@@ -24,7 +24,7 @@ window.onkeyup = (e) => {
 }
 
 const alienGroupBaseSpeed = 300
-const lastLevel = 3
+
 var currentLevel = 1
 var direction = !!Math.round(Math.random())
 
@@ -61,13 +61,13 @@ function loop(timestamp) {
         })
         alienGoups = []
 
-        if (currentLevel <= lastLevel) {
+        if (currentLevel <= config.game.lastlevel) {
             for (let i = 0; i < nGroups; i++) {
                 alienGoups.push(new AlienGroup(alienGroupBaseSpeed + (100 * i), direction))
                 direction = !direction
             }
             player.upgrade()
-            levelLogger.innerText = `LIVELLO ${currentLevel}/${lastLevel}`
+            levelLogger.innerText = `LIVELLO ${currentLevel}/${config.game.lastlevel}`
         }
         else {
             win()
@@ -93,7 +93,6 @@ function gameover() {
     gameover = () => { }
 }
 
-
 /**
  * @param {number} deltaTime 
  */
@@ -104,7 +103,6 @@ function update(deltaTime) {
     }
 }
 
-
 function draw() {
     for (let i = 0; i < GameObject.currentObjects.length; i++) {
         const gameobj = GameObject.currentObjects[i];
@@ -112,5 +110,5 @@ function draw() {
     }
 }
 
-levelLogger.innerText = `LIVELLO ${currentLevel}/${lastLevel}`
+levelLogger.innerText = `LIVELLO ${currentLevel}/${config.game.lastlevel}`
 window.requestAnimationFrame(loop)

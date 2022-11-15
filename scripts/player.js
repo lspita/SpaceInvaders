@@ -1,10 +1,11 @@
 import Ministage from "../ministage.js"
 import GameObject from "./engine.js"
 import Bullet from "./bullet.js"
+import config from "../config.js"
 
 export default class Player extends GameObject {
 
-    static #MAX_LEVEL = 3
+    static #MAX_LEVEL = config.player.maxlevel
     #fireInterval = null
     #preventSpam = false
     #input = {
@@ -15,8 +16,8 @@ export default class Player extends GameObject {
     constructor() {
         super('player')
         this.level = 1
-        this.idleImage = `assets/player/level${this.level}/idle.png`
-        this.activeImage = `assets/player/level${this.level}/active.png`
+        this.idleImage = `${config.player.assets}/level${this.level}/idle.png`
+        this.activeImage = `${config.player.assets}/level${this.level}/active.png`
         this.element.src = this.idleImage
         this.speed = 300
         this.firerate = 2
@@ -204,8 +205,8 @@ export default class Player extends GameObject {
         this.maxHealth = result.vitaMassima
         this.level++
 
-        this.idleImage = `assets/player/level${this.level}/idle.png`
-        this.activeImage = `assets/player/level${this.level}/active.png`
+        this.idleImage = `${config.player.assets}/level${this.level}/idle.png`
+        this.activeImage = `${config.player.assets}/level${this.level}/active.png`
         if (this.#fireInterval !== null) {
             clearInterval(this.#fireInterval)
             this.#fireInterval = setInterval(() => {

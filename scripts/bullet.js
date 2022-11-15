@@ -1,3 +1,4 @@
+import config from "../config.js"
 import GameObject from "./engine.js"
 
 export default class Bullet extends GameObject {
@@ -11,7 +12,7 @@ export default class Bullet extends GameObject {
             x: 0,
             y: (this.isEnemyBullet ? 1 : -1)
         }
-        this.element.src = `assets/${(this.isEnemyBullet ? 'enemies/' : 'player/')}bullet.png`
+        this.element.src = `${(this.isEnemyBullet ? config.enemies.assets : config.player.assets)}/bullet.png`
         this.getDamage = false
         this.setup(() => {
             this.rect.x = this.shooter.rect.x + this.shooter.rect.width / 2 - this.rect.width / 2
