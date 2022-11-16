@@ -5,7 +5,7 @@ import config from "../config.js"
 
 export default class Player extends GameObject {
 
-    static #MAX_LEVEL = config.player.maxlevel
+    static #MAX_LEVEL = config.giocatore.livellomassimo
     #fireInterval = null
     #preventSpam = false
     #input = {
@@ -16,8 +16,8 @@ export default class Player extends GameObject {
     constructor() {
         super('player')
         this.level = 1
-        this.idleImage = `${config.player.assets}/level${this.level}/idle.png`
-        this.activeImage = `${config.player.assets}/level${this.level}/active.png`
+        this.idleImage = `${config.giocatore.assets}/level${this.level}/idle.png`
+        this.activeImage = `${config.giocatore.assets}/level${this.level}/active.png`
         this.element.src = this.idleImage
         this.speed = 300
         this.firerate = 2
@@ -205,8 +205,8 @@ export default class Player extends GameObject {
         this.maxHealth = result.vitaMassima
         this.level++
 
-        this.idleImage = `${config.player.assets}/level${this.level}/idle.png`
-        this.activeImage = `${config.player.assets}/level${this.level}/active.png`
+        this.idleImage = `${config.giocatore.assets}/level${this.level}/idle.png`
+        this.activeImage = `${config.giocatore.assets}/level${this.level}/active.png`
         if (this.#fireInterval !== null) {
             clearInterval(this.#fireInterval)
             this.#fireInterval = setInterval(() => {

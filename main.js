@@ -61,13 +61,13 @@ function loop(timestamp) {
         })
         alienGoups = []
 
-        if (currentLevel <= config.game.lastlevel) {
+        if (currentLevel <= config.gioco.ultimolivello) {
             for (let i = 0; i < nGroups; i++) {
                 alienGoups.push(new AlienGroup(alienGroupBaseSpeed + (100 * i), direction))
                 direction = !direction
             }
             player.upgrade()
-            levelLogger.innerText = `LIVELLO ${currentLevel}/${config.game.lastlevel}`
+            levelLogger.innerText = `LIVELLO ${currentLevel}/${config.gioco.ultimolivello}`
         }
         else {
             win()
@@ -110,5 +110,5 @@ function draw() {
     }
 }
 
-levelLogger.innerText = `LIVELLO ${currentLevel}/${config.game.lastlevel}`
+levelLogger.innerText = `LIVELLO ${currentLevel}/${config.gioco.ultimolivello}`
 window.requestAnimationFrame(loop)

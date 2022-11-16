@@ -17,7 +17,7 @@ export class Alien extends GameObject {
         super('alien')
         this.group = group
         this.#spawnY = spawn_offset
-        this.element.src = `${config.enemies.assets}/alien${(Alien.#color2 ? 2 : 1)}.png`
+        this.element.src = `${config.alieni.assets}/alien${(Alien.#color2 ? 2 : 1)}.png`
         Alien.#color2 = !Alien.#color2
         this.speed = this.group.speed
         this.movement = this.group.movement
@@ -58,7 +58,7 @@ export class Alien extends GameObject {
 export class AlienGroup extends GameObject {
 
     static #spawnY = -90
-    static N_ALIENS = config.enemies.groupcount
+    static N_ALIENS = config.alieni.numero_per_gruppo
     #isFromLeft = false
 
     /**
